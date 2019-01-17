@@ -13,7 +13,8 @@
           {% if current_user.is_anonymous %}
           <a href="{{ url_for('login') }}">Sign In</a>
           {% else %}
-          <span> >> User: {{ current_user.username }} <<</span>
+          <span>&emsp;&emsp;&emsp;&emsp;<img src="{{ current_user.avatar(28) }}" alt="Profile Photo">Welcome, {{ current_user.username }}&emsp;</span>
+          <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
           <a href="{{ url_for('logout') }}">Sign Out</a>
           {% endif %}
         </div>

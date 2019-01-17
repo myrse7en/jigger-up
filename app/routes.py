@@ -1,36 +1,42 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, ProfileEditorForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+from datetime import datetime
 
 
 @app.route('/')
 @app.route('/index')
-@login_required
+# @login_required
 def index():
     # user = {'username': 'Myr'}
     posts = [
         {
             'author': {'username': 'John'},
-            'body': 'Beautiful day today in Boston!'
+            'body': 'Beautiful day today in Boston!',
+            'avatar': 'http://placehold.it/36x36'
         },
         {
             'author': {'username': 'Susan'},
-            'body': 'That\'s a cool website!'
+            'body': 'That\'s a cool website!',
+            'avatar': 'http://placehold.it/36x36'
         },
         {
             'author': {'username': 'Jeff'},
-            'body': 'Massage me.'
+            'body': 'Massage me.',
+            'avatar': 'http://placehold.it/36x36'
         },
         {
             'author': {'username': 'Connor'},
-            'body': 'Chop Chop!'
+            'body': 'Chop Chop!',
+            'avatar': 'http://placehold.it/36x36'
         },
         {
             'author': {'username': 'Maria'},
-            'body': 'It\'s a good day for conquest'
+            'body': 'It\'s a good day for conquest',
+            'avatar': 'http://placehold.it/36x36'
         }
 
     ]
@@ -58,7 +64,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('Signed Out!')
+    flash('Signed out successfully!')
     return redirect(url_for('index'))
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -83,4 +89,28 @@ def user(username):
         {'author': user, 'body': 'Test post #1'},
         {'author': user, 'body': 'Test post #2'}
     ]
-    return render_template('user.html', user=user, post=post)
+    return render_template('user.html', user=user, posts=posts)
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+@app.route('/profile_editor', methods=['GET', 'POST'])
+@login_required
+def profile_editor():
+    form = ProfileEditorForm(current_user.username)
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.headline = form.headline.data
+        current_user.bio = form.bio.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('profile_editor'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.headline.data = current_user.headline
+        form.bio.data = current_user.bio
+    return render_template('profile_editor.html', title='Edit Profile',
+                           form=form)

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user == current_user %}
+    <div class="main-heading">
+      <h1>Your Profile<span><a href="{{ url_for('profile_editor') }}">(Edit)</a></span></h1>
+    </div>
+  {% else %}
+    <div class="main-heading">
+      <h1>{{ user.username.upper() }}'s Profile</h1>
+    </div>
+  {% endif %}
+  <table>
+    <!-- TODO: C6 - Allow user to upload profile photo or display stock -->
+    <tr>
+      <td>Photo</td>
+      <td><img src="{{ user.avatar(128) }}" alt="Profile Photo"></td>
+      <td><a href=#>Change</a></td>
+    </tr>
+    <tr valign="top">
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td><b>{{ user.username }}</b></td>
+      <!-- <td><a href=#>Change</a></td> -->
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><b>{{ user.email }}</b></td>
+      <!-- <td><a href=#>Change</a></td> -->
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><b>••••••••</b></td>
+      <!-- <td><a href=#>Change</a></td> -->
+    </tr>
+    <tr>
+      <td>Headline</td>
+      <td>{% if user.headline %}<b>{{ user.headline }}</b>{% endif %}</td>
+      <!-- <td><a href=#>Change</a></td> -->
+    </tr>
+    <tr>
+      <td>Bio</td>
+      <td>{% if user.bio %}<b>{{ user.bio }}</b>{% endif %}</td>
+      <!-- <td><a href=#>Change</a></td> -->
+    </tr>
+    <tr>
+      <td>Last sign in</td>
+      <td>{% if user.last_seen %}<b>{{ user.last_seen }}</b>{% endif %}</td>
+    </tr>
+  </table>
+  <br><br><hr>
+  <h3>Comments: </h3>
+  {% for post in posts %}
+    {% include '_post.html' %}
+  {% endfor %}
+  <hr>
+{% endblock %}
