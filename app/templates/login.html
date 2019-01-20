@@ -1,6 +1,21 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
+{% block app_content %}
+  <div class="container">
+    <div class="row extra-top-margin">
+      <div class="col-md-5 col-sm-8">
+        <h1>Sign In</h1>
+      </div>
+    </div> <!-- ends row -->
+    <div class="row">
+      <div class="col-md-5 col-sm-8">
+        {{ wtf.quick_form(form) }}
+        <p class="centered">New to Capstone?<a href="{{ url_for('signup') }}">Create account</a></p>
+      </div>
+    </div>
+  </div> <!-- ends container -->
+<!--
   <h1>Sign In</h1>
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
@@ -21,5 +36,5 @@
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <p>{{ form.submit() }}</p>
   </form>
-  <p>New to >>Insert name<< ?<a href="{{ url_for('signup') }}">Create account</a></p>
+  <p>New to Capstone?<a href="{{ url_for('signup') }}">Create account</a></p> -->
 {% endblock %}

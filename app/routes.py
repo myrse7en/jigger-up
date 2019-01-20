@@ -1,6 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
+import requests
+import json
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, ProfileEditorForm
+from app.forms import LoginForm, RegistrationForm, ProfileEditorForm, RecipeSearch
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
@@ -11,7 +13,7 @@ from datetime import datetime
 @app.route('/index')
 # @login_required
 def index():
-    # user = {'username': 'Myr'}
+
     posts = [
         {
             'author': {'username': 'John'},
@@ -40,7 +42,49 @@ def index():
         }
 
     ]
-    return render_template('index.html', title='Home', posts=posts)
+
+    # products = Product.query.all()
+
+    products = {
+        101: {
+            "id": 101,
+            "title": "Soap",
+            "price": 4.95,
+            "url": "http://placehold.it/250x250",
+            "desc": "This bar of soap is a bar of soapy soap."
+        },
+        102: {
+            "id": 102,
+            "title": "Grapes",
+            "price": 3.85,
+            "url": "http://placehold.it/250x250",
+            "desc": "These grapes are abundle of grapey grapes."
+        },
+        103: {
+            "id": 103,
+            "title": "Oranges",
+            "price": 67.85,
+            "url": "http://placehold.it/250x250",
+            "desc": "This box is a box of orangey oranges."
+        },
+        104: {
+            "id": 104,
+            "title": "Oranges",
+            "price": 67.85,
+            "url": "http://placehold.it/250x250",
+            "desc": "This box is a box of orangey oranges."
+        },
+        105: {
+            "id": 105,
+            "title": "Oranges",
+            "price": 67.85,
+            "url": "http://placehold.it/250x250",
+            "desc": "This box is a box of orangey oranges."
+        }
+    }
+
+
+    return render_template('index.html', title='Home', posts=posts, products=products)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -112,5 +156,18 @@ def profile_editor():
         form.username.data = current_user.username
         form.headline.data = current_user.headline
         form.bio.data = current_user.bio
-    return render_template('profile_editor.html', title='Edit Profile',
-                           form=form)
+    return render_template('profile_editor.html', title='Edit Profile', form=form)
+
+@app.route('/search/', methods=['GET', 'POST'])
+@app.route('/search/<type>/<ing>', methods=['GET', 'POST'])
+def search(type='i', ing=''):
+    form = RecipeSearch()
+
+    if form.validate_on_submit():
+        response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?{}={}'.format(type, form.ingredient.data))
+        data = response.json()
+
+        if type == 'i':
+            return render_template('search.html', data=data['drinks'], form=form)
+
+    return render_template('search.html', form=form, title="Search", data='')

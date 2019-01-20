@@ -1,33 +1,101 @@
-<html>
-    <head>
-      {% if title %}
-      <title>{{ title }} - Capstone</title>
-      {% else %}
-      <title>Welcome to Capstone</title>
-      {% endif %}
-    </head>
-    <body>
-        <div>
-          Capstone:
-          <a href="{{ url_for('index') }}">Home</a>
-          {% if current_user.is_anonymous %}
-          <a href="{{ url_for('login') }}">Sign In</a>
-          {% else %}
-          <span>&emsp;&emsp;&emsp;&emsp;<img src="{{ current_user.avatar(28) }}" alt="Profile Photo">Welcome, {{ current_user.username }}&emsp;</span>
-          <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-          <a href="{{ url_for('logout') }}">Sign Out</a>
-          {% endif %}
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+  {% if title %}
+    Capstone | {{ title }}
+  {% else %}
+    Welcome to Capstone
+  {% endif %}
+{% endblock %}
+
+{% block styles %}
+  <!-- super inherits from parent, in this case we are inheriting bootstrap links to CDN's instead of writing them out ourselves -->
+  {{ super() }}
+  <link rel="stylesheet" href="../static/css/main.css">
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h4 class="text-white">Collapsed content</h4>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Jigger
+        <img src="http://placehold.it/30x30" width="30" height="30" class="d-inline-block align-top" alt="Nav Logo" id="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation"> Up
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pantry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="{{ url_for('search')}}">Search Temp</a>
+          </li>
         </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+
+        <span class="navbar-nav nav-item active dropdown my-2 my-lg-0 mr-sm-2">
+          {% if current_user.is_anonymous %}
+            <a class="nav-link" href="{{ url_for('login') }}">Sign In</a>
+          {% else %}
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img class="align-top" src="{{ current_user.avatar(26) }}" alt="Profile Photo"> {{ current_user.username }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a>
+            </div>
+            {% endif %}
+        </span>
+      </div>
+    </nav>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+  <div id="flashed_messages" class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {# application content #}
+    {% block app_content %}{% endblock %}
+  </div>
+
+  <!-- footer -->
+  <div class="row">
+    <div class="col-md-12">
+      <footer>
+        <div class="row">
+          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
+          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
+          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
+        </div> <!-- ends row for footer text -->
+      </footer>
+    </div> <!-- ends col 12 for footer-->
+  </div> <!-- ends row for footer -->
+{% endblock %}
