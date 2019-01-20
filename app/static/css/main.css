@@ -2,6 +2,7 @@ body {
   overflow-x: hidden;
   margin: 0px;
   background-color: rgba(0, 0, 0, 0.1) !important;
+  height: auto;
 }
 
 h1 {
@@ -81,4 +82,5 @@ footer {
    color: rgba(255, 255, 255, 0.5);
    padding: 25px;
    margin-top: 100px;
+
 }
