@@ -1,10 +1,12 @@
 <Version 0.9> 01/21/2019
-
+-active state management for navbar links.
+-various visual and layout improvements.
 
 <Version 0.8> 01/20/2019
 -added follower and followed functionality.
 -added pagination feature to templates.
 -added tests.py allowing unit testing on User class model.
+-pagination support for posts added.
 
 <Version 0.7> 01/18/2019
 -various visual improvements to home page and other templates.

@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
 
 {% block app_content %}
   <div class="container">
@@ -51,9 +53,22 @@
       {% endfor %}
     </div> <!-- ends row -->
     <br><br><hr>
-    <h3>Comments: </h3>
+    {% if form %}
+      {{ wtf.quick_form(form) }}
+    {% endif %}
+    <h3>{{ 'Followed' if active_page == 'home' else 'Public' }} Posts: </h3>
     {% for post in posts %}
       {% include '_post.html' %}
     {% endfor %}
+    <nav aria-label="Page Nav">
+      <ul class="pagination pagination-sm justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="{{ next_url if next_url else '' }}">Older</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="{{ prev_url if prev_url else '' }}">Newer</a>
+        </li>
+      </ul>
+    </nav>
   </div> <!-- ends container -->
 {% endblock %}
