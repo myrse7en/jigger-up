@@ -7,84 +7,24 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
-
+import random # help importing
 
 @app.route('/')
 @app.route('/index')
 # @login_required
 def index():
+    # API - Random
+    response_random = requests.get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    random_drink = response_random.json()
 
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day today in Boston!',
-            'avatar': 'http://placehold.it/36x36'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'That\'s a cool website!',
-            'avatar': 'http://placehold.it/36x36'
-        },
-        {
-            'author': {'username': 'Jeff'},
-            'body': 'Massage me.',
-            'avatar': 'http://placehold.it/36x36'
-        },
-        {
-            'author': {'username': 'Connor'},
-            'body': 'Chop Chop!',
-            'avatar': 'http://placehold.it/36x36'
-        },
-        {
-            'author': {'username': 'Maria'},
-            'body': 'It\'s a good day for conquest',
-            'avatar': 'http://placehold.it/36x36'
-        }
+    response_category = requests.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail')
+    category_drink = response_category.json()
+    print(category_drink)
 
-    ]
-
-    # products = Product.query.all()
-
-    products = {
-        101: {
-            "id": 101,
-            "title": "Soap",
-            "price": 4.95,
-            "url": "http://placehold.it/250x250",
-            "desc": "This bar of soap is a bar of soapy soap."
-        },
-        102: {
-            "id": 102,
-            "title": "Grapes",
-            "price": 3.85,
-            "url": "http://placehold.it/250x250",
-            "desc": "These grapes are abundle of grapey grapes."
-        },
-        103: {
-            "id": 103,
-            "title": "Oranges",
-            "price": 67.85,
-            "url": "http://placehold.it/250x250",
-            "desc": "This box is a box of orangey oranges."
-        },
-        104: {
-            "id": 104,
-            "title": "Oranges",
-            "price": 67.85,
-            "url": "http://placehold.it/250x250",
-            "desc": "This box is a box of orangey oranges."
-        },
-        105: {
-            "id": 105,
-            "title": "Oranges",
-            "price": 67.85,
-            "url": "http://placehold.it/250x250",
-            "desc": "This box is a box of orangey oranges."
-        }
-    }
-
-
-    return render_template('index.html', title='Home', posts=posts, products=products)
+    # data=data['drinks']
+    # category_drink=category_drink['drinks'])
+    
+    return render_template('index.html', title="Home", random_drink=random_drink['drinks'], category_drink=category_drink['drinks'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -133,7 +73,7 @@ def user(username):
         {'author': user, 'body': 'Test post #1'},
         {'author': user, 'body': 'Test post #2'}
     ]
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user.html', user=user, posts=posts, title="Profile")
 
 @app.before_request
 def before_request():

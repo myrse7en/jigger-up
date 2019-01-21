@@ -23,29 +23,46 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   margin-top: 0px;
 }
 
-.header-img {
-  margin-top: 50px;
-  width: 100%;
+
+.highlight-img {
+  width: 250px;
   height: 250px;
+  margin: 20px;
+}
+
+.highlight-content {
+  width: 250px;
+  height: 250px;
+  margin: 20px auto;
+  text-align: justify;
+  font-size: 125%;
 }
 
 .card {
  padding: 15px;
- margin-top: 75px;
+ margin-top: 50px;
 }
 
 .card-img {
   width: 100%;
-  margin: 25px auto;
+  margin: 15px auto;
 }
 
 .card-title {
-  font-size: 125%;
-  font-weight: bold;
+  font-size: 100%;
+  text-align: center !important;
+  font-variant: small-caps;
+  font-weight: 600;
 }
 .card-subtitle {
   font-size: 85%;
   font-style: italic;
+  padding: 5px;
+}
+
+.card-text {
+  /* font-size: 85%; */
+  padding: 5px 0px;
 }
 
 .btn-primary {

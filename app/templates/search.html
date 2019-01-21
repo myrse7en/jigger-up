@@ -13,12 +13,12 @@
     </div> <!-- ends row for title -->
 
     <div class="row extra-top-margin">
-      {% for drink in data %}
-        <p>
-          <img src="{{ drink['strDrinkThumb'] }}" alt="drink" />
-          <b>{{ drink['strDrink'] }}</b>
-        </p>
-      {% endfor %}
+        {% for drink in data %}
+          <p>
+            <img src="{{ drink['strDrinkThumb'] }}" alt="drink" />
+            <b>{{ drink['strDrink'] }}</b>
+          </p>
+        {% endfor %}
     </div>
   </div> <!-- ends container -->
 {% endblock %}
