@@ -1,29 +1,23 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block title %}| Search{% endblock %}
-
 {% block app_content %}
   <div class="container">
     <div class="row extra-top-margin h1-inherit">
       <div class="col-md-5 col-sm-8">
-        <h1>Ingredient Search</h1>
+        <h1>Hi, {{ current_user.username }}!</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-md-5 col-sm-8">
-          {{ wtf.quick_form(form) }}
+        <p>Render recipe here!</p>
       </div>
     </div>
-
-
-    <div class="row extra-top-margin">
-        {% for drink in data %}
-          <p>
-            <img src="{{ drink['strDrinkThumb'] }}" alt="drink" />
-            <b>{{ drink['strDrink'] }}</b>
-          </p>
-        {% endfor %}
-    </div>
+    <br><br><hr>
+    {{ wtf.quick_form(form) }}
+    <h3>Comments: </h3>
+    {% for post in posts %}
+      {% include '_post.html' %}
+    {% endfor %}
   </div> <!-- ends container -->
 {% endblock %}

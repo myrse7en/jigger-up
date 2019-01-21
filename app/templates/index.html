@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<div class="container">
-    <div class="row extra-top-margin">
+  <div class="container">
+    <div class="row extra-top-margin h1-inherit">
       <div class="col-md-12">
         <h1>Featured</h1>
       </div> <!-- ends col 12 for title -->
@@ -21,8 +21,11 @@
               <div class="highlight-content col-md-6">
                 <div class="card-subtitle">Category: {{ drink['strCategory'] }}</div>
                 <div class="card-subtitle">Glass Type: {{ drink['strGlass'] }}</div>
-                <button class="btn btn-primnary" onClick="console.log({{ drink['idDrink'] }})">Mix It</
-                button>
+                <div class="btn-group btn-block" role="group" aria-label="...">
+                  <button class="btn btn-block btn-outline-success" type="button" onClick="console.log({{ drink['idDrink'] }})">Save</button>
+                  <button class="btn btn-block btn-info" type="button" onClick="console.log({{ drink['idDrink'] }})">Mix</button>
+                  <button class="btn btn-block btn-outline-danger" type="button" onClick="console.log({{ drink['idDrink'] }})">X</button>
+                </div>
               </div>
             </div>
 
@@ -31,30 +34,26 @@
     </div> <!-- ends row -->
 
     <div class="row">
-      {% for drink in category_drink[:8] %}
+      {% for drink in category_drink[2:10] %}
         <div class="col-md-3">
           <div class="card">
             <div class="card-img-top">
               <img class="card-img" src="{{ drink['strDrinkThumb'] }}" alt="Drink Image" />
             </div>
             <div class="card-title">{{ drink['strDrink'].title() }}</div>
-            <button class="btn btn-primnary" onClick="console.log({{ drink['idDrink'] }})">Mix It</button>
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              <button class="btn btn-sm btn-block btn-outline-success" type="button" onClick="console.log({{ drink['idDrink'] }})">Save</button>
+              <button class="btn btn-sm btn-block btn-info" type="button" onClick="console.log({{ drink['idDrink'] }})">Mix</button>
+              <button class="btn btn-sm btn-block btn-outline-danger" type="button" onClick="console.log({{ drink['idDrink'] }})">X</button>
+            </div>
           </div> <!-- ends card -->
         </div> <!-- ends col 3 -->
       {% endfor %}
     </div> <!-- ends row -->
-
-
+    <br><br><hr>
+    <h3>Comments: </h3>
+    {% for post in posts %}
+      {% include '_post.html' %}
+    {% endfor %}
   </div> <!-- ends container -->
-
-
-  <!-- <h1>Hi, {{ current_user.username }}!</h1>
-  <br><br><hr>
-  <h3>Comments: </h3>
-  {% for post in posts %}
-    <p>
-      {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
-  {% endfor %}
-  <hr> -->
 {% endblock %}

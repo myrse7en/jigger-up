@@ -1,6 +1,19 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  <h1>Howdy, you must've taken a wrong turn there partner!</h1>
-  <h2>Head <a href="{{ url_for('index') }}">Back</a>.</h2>
+<div class="container">
+  <div class="row extra-top-margin h1-inherit">
+    <div class="col-md-8 col-sm-10">
+      <h1>Howdy, you must've taken a wrong turn there partner!</h1>
+    </div>
+  </div> <!-- ends row -->
+  <div class="row">
+    <div class="col-md-8 col-sm-10">
+      <p>The administrator has been notified. Sorry for the inconvenience!</p>
+      <h2>Head <a href="{{ url_for('index') }}">Back</a>.</h2>
+    </div>
+  </div>
+</div> <!-- ends container -->
+
+
 {% endblock %}

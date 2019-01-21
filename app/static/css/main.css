@@ -5,15 +5,62 @@ body {
   height: auto;
 }
 
-h1 {
+h1, h2, h3 {
 color: rgba(0, 0, 0, 0.5);
-border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+margin-top: 15px;
+/* border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
+}
+
+#flashed_messages {
+  position: absolute;
+  max-width: 50%;
+  top: 52px;
+  left: 10%;
+  right: 10%;
+}
+
+.h1-inherit {
+  color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.a-custom {
+  text-shadow: 1px 1px 3px #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 125%;
+  color: #204c7aeb;
+  text-shadow: 0 0 3px #fff, 2px 2px 4px #000000;
+}
+
+.a-custom:hover {
+  text-decoration: none;
+  color: #5e83aadb;
+  text-shadow: 0 0 1.5px #FF0000, 1px 1px 2px #000000;
+}
+
+.a-user-custom {
+  font-size: 110%;
+  text-decoration: none;
+  font-weight: 600;
+  color: #f4b400e0;
+  text-shadow: 0 0 3px #FF0000, 2px 2px 4px #000000;
+}
+
+.a-user-custom:hover {
+  font-size: 110%;
+  text-decoration: none;
+  font-weight: 600;
+  color: #f4b400e0;
+  text-shadow: 0 0 1.5px #FF0000, 1px 1px 2px #000000;
 }
 
 .bg-dark {
   background-color: #B2BF6D!important;
   background-color: #737234!important;
+  text-shadow: 1px 1px 3px #000000;
 }
+
 
 .extra-top-margin {
   margin-top: 100px;
@@ -22,7 +69,6 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 .no-top-margin {
   margin-top: 0px;
 }
-
 
 .highlight-img {
   width: 250px;
@@ -41,11 +87,12 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 .card {
  padding: 15px;
  margin-top: 50px;
+ /* min-height: 350px; */
 }
 
 .card-img {
   width: 100%;
-  margin: 15px auto;
+  margin: 5px auto;
 }
 
 .card-title {
@@ -53,7 +100,11 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   text-align: center !important;
   font-variant: small-caps;
   font-weight: 600;
+  min-height: 48px;
+  max-height: 48px;
+  margin-bottom: 0px;
 }
+
 .card-subtitle {
   font-size: 85%;
   font-style: italic;
@@ -65,23 +116,6 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   padding: 5px 0px;
 }
 
-.btn-primary {
-  width: 80%;
-  display: block;
-  margin: 15px auto;
-  background-color: #343a40!important;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.btn-like {
-  width: 50px;
-  padding: 5px;
-  margin: 5px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-
 .form {
   border: 1px solid grey;
   border-radius: 10px;
@@ -91,6 +125,26 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 
 .centered {
   text-align: center;
+  display: block;
+  padding: .5rem 1rem;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.tab {
+  margin-left: 40px;
+  font-family: sans-serif;
+}
+
+.btn-block {
+  margin-top: .5rem !important;
+}
+
+.comment-table {
+  padding: 5px 0 0 0 !important;
 }
 
 footer {

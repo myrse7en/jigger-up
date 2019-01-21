@@ -2,11 +2,12 @@ from flask import render_template, flash, redirect, url_for, request, session
 import requests
 import json
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, ProfileEditorForm, RecipeSearch
+from app.forms import LoginForm, RegistrationForm, ProfileEditorForm, RecipeSearch, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Post
 from werkzeug.urls import url_parse
 from datetime import datetime
+
 import random # help importing
 
 @app.route('/')
@@ -23,8 +24,10 @@ def index():
 
     # data=data['drinks']
     # category_drink=category_drink['drinks'])
-    
-    return render_template('index.html', title="Home", random_drink=random_drink['drinks'], category_drink=category_drink['drinks'])
+
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+
+    return render_template('index.html', title="Home", posts=posts, random_drink=random_drink['drinks'], category_drink=category_drink['drinks'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -69,10 +72,8 @@ def signup():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    posts = current_user.followed_posts().all()
+
     return render_template('user.html', user=user, posts=posts, title="Profile")
 
 @app.before_request
@@ -111,3 +112,55 @@ def search(type='i', ing=''):
             return render_template('search.html', data=data['drinks'], form=form)
 
     return render_template('search.html', form=form, title="Search", data='')
+
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', posts=posts)
+
+@app.route('/recipe', methods=['GET', 'POST'])
+@app.route('/recipe/<recipeid>', methods=['GET', 'POST'])
+@login_required
+def recipe():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('recipe'))
+    posts = current_user.followed_posts().all()
+
+    return render_template("recipe.html", title='Recipe', form=form,
+                           posts=posts)
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('index'))
+    if user == current_user:
+        flash('You cannot follow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    flash('You are following {}!'.format(username))
+    return redirect(url_for('user', username=username))
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('index'))
+    if user == current_user:
+        flash('You cannot unfollow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash('You unfollowed {}.'.format(username))
+    return redirect(url_for('user', username=username))

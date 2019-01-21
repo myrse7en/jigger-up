@@ -50,6 +50,9 @@
             <li class="nav-item">
               <a class="nav-link disabled" href="{{ url_for('search')}}">Search Temp</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="{{ url_for('recipe')}}">Recipe</a>
+            </li>
           </ul>
 
           <span class="navbar-nav nav-item active dropdown my-2 my-lg-0 mr-sm-2">
@@ -72,9 +75,6 @@
     </nav>
   </div>
 
-{% endblock %}
-
-{% block content %}
   <div id="flashed_messages" class="container">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -85,10 +85,15 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
-
-    {# application content #}
-    {% block app_content %}{% endblock %}
   </div>
+{% endblock %}
+
+{% block content %}
+
+
+  {# application content #}
+  {% block app_content %}{% endblock %}
+
 
   <!-- footer -->
   <div class="row static-bottom">

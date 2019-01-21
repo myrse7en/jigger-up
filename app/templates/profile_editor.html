@@ -2,16 +2,19 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-  <div class="row extra-top-margin">
-    <div class="col-md-5 col-sm-8">
-      <h1>Edit Your Profile</h1>
+  <div class="container">
+    <div class="row extra-top-margin h1-inherit">
+      <div class="col-md-5 col-sm-8">
+        <h1>Edit Your Profile</h1>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-5 col-sm-8">
-        {{ wtf.quick_form(form) }}
+    <div class="row">
+      <div class="col-md-5 col-sm-8">
+          {{ wtf.quick_form(form) }}
+      </div>
     </div>
-  </div>
+  </div> <!-- ends container -->
+
 <!--
     <h1>Edit Profile</h1>
     <form action="" method="post">

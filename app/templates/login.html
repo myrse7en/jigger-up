@@ -3,7 +3,7 @@
 
 {% block app_content %}
   <div class="container">
-    <div class="row extra-top-margin">
+    <div class="row extra-top-margin h1-inherit">
       <div class="col-md-5 col-sm-8">
         <h1>Sign In</h1>
       </div>
@@ -11,10 +11,12 @@
     <div class="row">
       <div class="col-md-5 col-sm-8">
         {{ wtf.quick_form(form) }}
-        <p class="centered">New to Capstone?<a href="{{ url_for('signup') }}">Create account</a></p>
+        <p class="centered">New to Capstone?<a class="a-custom" href="{{ url_for('signup') }}"> Create account</a></p>
       </div>
     </div>
   </div> <!-- ends container -->
+
+
 <!--
   <h1>Sign In</h1>
   <form action="" method="post" novalidate>

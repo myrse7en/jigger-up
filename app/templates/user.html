@@ -1,57 +1,75 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  {% if user == current_user %}
-    <div class="main-heading">
-      <h1>Your Profile<span><a href="{{ url_for('profile_editor') }}">(Edit)</a></span></h1>
-    </div>
-  {% else %}
-    <div class="main-heading">
-      <h1>{{ user.username.upper() }}'s Profile</h1>
-    </div>
-  {% endif %}
-  <table class="table table-hover">
-    <!-- TODO: C6 - Allow user to upload profile photo or display stock -->
-    <tr>
-      <td>Photo</td>
-      <td><img src="{{ user.avatar(128) }}" alt="Profile Photo"></td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr valign="top">
-    </tr>
-    <tr>
-      <td>Username</td>
-      <td><b>{{ user.username }}</b></td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td><b>{{ user.email }}</b></td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><b>••••••••</b></td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr>
-      <td>Headline</td>
-      <td>{% if user.headline %}<b>{{ user.headline }}</b>{% endif %}</td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr>
-      <td>Bio</td>
-      <td>{% if user.bio %}<b>{{ user.bio }}</b>{% endif %}</td>
-      <!-- <td><a href=#>Change</a></td> -->
-    </tr>
-    <tr>
-      <td>Last sign in</td>
-      <td>{% if user.last_seen %}<b>{{ user.last_seen }}</b>{% endif %}</td>
-    </tr>
-  </table>
-  <br><br><hr>
-  <h3>Comments: </h3>
-  {% for post in posts %}
-    {% include '_post.html' %}
-  {% endfor %}
+  <div class="container">
+    <div class="row extra-top-margin h1-inherit">
+          <div class="col-md-4">
+            {% if user == current_user %}
+              <h1>Your Profile</h1>
+            {% else %}
+              <h1>{{ user.username }}'s Profile</h1>
+            {% endif %}
+          </div>
+          <div class="col-md-4">
+            {% if user == current_user %}
+              <a class="btn btn-block btn-dark" type="button" href="{{ url_for('profile_editor') }}">Edit</a>
+            {% elif not current_user.is_following(user) %}
+              <a class="btn btn-block btn-outline-success" type="button" href="{{ url_for('follow', username=user.username) }}">Follow</a>
+            {% else %}
+              <a class="btn btn-block btn-outline-danger" type="button" href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
+            {% endif %}
+          </div>
+          <div class="col-md-4">
+            <span>
+              <div class="btn-group" role="group" aria-label="...">
+                <button class="btn btn-block btn-outline-primary" type="button" onClick="console.log('followers')">Followers {{ user.followers.count() }}</button>
+                <button class="btn btn-block btn-outline-primary" type="button" onClick="console.log('followed')">Followed {{ user.followed.count() }}</button>
+            </span>
+          </div>
+    </div> <!-- ends row for title -->
+
+
+    <table class="table table-hover">
+      <!-- TODO: C6 - Allow user to upload profile photo or display stock -->
+      <tr>
+        <td>Photo</td>
+        <td><img src="{{ user.avatar(128) }}" alt="Profile Photo"></td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Username</td>
+        <td><b>{{ user.username }}</b></td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><b>{{ user.email }}</b></td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td><b>••••••••</b></td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Headline</td>
+        <td>{% if user.headline %}<b>{{ user.headline }}</b>{% endif %}</td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Bio</td>
+        <td>{% if user.bio %}<b>{{ user.bio }}</b>{% endif %}</td>
+        <!-- <td><a href=#>Change</a></td> -->
+      </tr>
+      <tr>
+        <td>Last sign in</td>
+        <td>{% if user.last_seen %}<b>{{ user.last_seen }}</b>{% endif %}</td>
+      </tr>
+    </table>
+    <br><br><hr>
+    <h3>Comments: </h3>
+    {% for post in posts %}
+      {% include '_post.html' %}
+    {% endfor %}
+  </div> <!-- ends container -->
 {% endblock %}
