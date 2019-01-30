@@ -1,4 +1,5 @@
 {% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
   {% if title %}
@@ -20,7 +21,7 @@
 
 {% block navbar %}
   <div class="pos-f-t">
-    <div class="collapse" id="navbarToggleExternalContent">
+    <!-- <div class="collapse" id="navbarToggleExternalContent">
       <div class="bg-dark p-4">
         <h4 class="text-white">Collapsed content</h4>
         <span class="text-muted">Toggleable via the navbar brand.</span>
@@ -29,11 +30,11 @@
           <button class="btn btn-default my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
-    </div>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+    </div> -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Jigger
-          <img src="http://placehold.it/30x30" width="30" height="30" class="d-inline-block align-top" alt="Nav Logo" id="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation"> Up
+        <a class="navbar-brand" href="{{ url_for('explore')}}">
+          <img src="..\static\images\JUlogo30-m.png" width="30" height="30" class="d-inline-block align-top" alt="Nav Logo" id="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation"> JiggerUp
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -41,16 +42,17 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ 'active' if active_page == 'explore' else '' }}">
+              <a class="nav-link" href="{{ url_for('explore') }}">Explore</a>
+            </li>
             <li class="nav-item {{ 'active' if active_page == 'home' else '' }}">
               <a class="nav-link" href="{{ url_for('index') }}">Home</a>
             </li>
-            <li class="nav-item {{ 'active' if active_page == 'explore' else '' }}">
-              <a class="nav-link" href="{{ url_for('explore') }}">Explore</a>
             <li class="nav-item {{ 'active' if active_page == 'pantry' else '' }}">
               <a class="nav-link" href="#">Pantry</a>
             </li>
             <li class="nav-item {{ 'active' if active_page == 'search' else '' }}">
-              <a class="nav-link" href="{{ url_for('search')}}">Search Temp</a>
+              <a class="nav-link" href="{{ url_for('search')}}">Search</a>
             </li>
             <li class="nav-item {{ 'active' if active_page == 'recipe' else 'disabled' }}">
               <a class="nav-link" href="{{ url_for('recipe')}}">Recipe</a>
@@ -66,7 +68,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item {{ 'active' if active_page == 'profile' else '' }}" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-                <a class="dropdown-item {{ 'active' if active_page == 'action' else '' }}" href="#">Another action</a>
+                <!-- <a class="dropdown-item {{ 'active' if active_page == 'action' else '' }}" href="#">Another action</a> -->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a>
               </div>
@@ -95,15 +97,18 @@
   {# application content #}
   {% block app_content %}{% endblock %}
 
-
   <!-- footer -->
   <div class="row static-bottom">
     <div class="col-md-12">
       <footer>
         <div class="row">
-          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
-          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
-          <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div> <!-- ends col 4 -->
+          <div class="container">
+            <div class="col-md-12">
+              <p class="text-center align-middle">
+                Copyright 2019. <a class="a-custom" href="https://github.com/myrse7en">Developer Github: @myrse7en</a>
+              </p>
+            </div> <!-- ends col 12 -->
+          </div>
         </div> <!-- ends row for footer text -->
       </footer>
     </div> <!-- ends col 12 for footer-->

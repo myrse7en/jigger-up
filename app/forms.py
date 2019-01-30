@@ -55,7 +55,7 @@ class PostForm(FlaskForm):
 
 class RecipeSearch(FlaskForm):
     ingredient = StringField('Ingredient: ', validators=[DataRequired()])
-    # submit = SubmitField('Submit')
+    submit = SubmitField('Submit')
 
     def getRecipeByIngredients(ingredients):
         return

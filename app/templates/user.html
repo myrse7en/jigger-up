@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  <div class="container">
+  <div class="container container-custom">
     <div class="row extra-top-margin h1-inherit">
-          <div class="col-md-4">
-            {% if user == current_user %}
-              <h1>Your Profile</h1>
-            {% else %}
-              <h1>{{ user.username }}'s Profile</h1>
-            {% endif %}
+      <div class="col-md-4">
+        {% if user == current_user %}
+          <h1>Your Profile</h1>
+        {% else %}
+          <h1>{{ user.username }}'s Profile</h1>
+        {% endif %}
+      </div>
+      <div class="col-md-4">
+        {% if user == current_user %}
+          <a class="btn btn-block btn-dark" type="button" href="{{ url_for('profile_editor') }}">Edit</a>
+        {% elif not current_user.is_following(user) %}
+          <a class="btn btn-block align-middle btn-outline-success" type="button" href="{{ url_for('follow', username=user.username) }}">Follow</a>
+        {% else %}
+          <a class="btn btn-block btn-outline-danger" type="button" href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
+        {% endif %}
+      </div>
+      <div class="col-md-4">
+        <span>
+          <div class="btn-group text-left" role="group" aria-label="...">
+            <button class="btn btn-block btn-outline-secondary" type="button" onClick="console.log('followers')">Followers {{ user.followers.count() }}</button>
+            <button class="btn btn-block btn-outline-secondary" type="button" onClick="console.log('followed')">Followed {{ user.followed.count() }}</button>
           </div>
-          <div class="col-md-4">
-            {% if user == current_user %}
-              <a class="btn btn-block btn-dark" type="button" href="{{ url_for('profile_editor') }}">Edit</a>
-            {% elif not current_user.is_following(user) %}
-              <a class="btn btn-block btn-outline-success" type="button" href="{{ url_for('follow', username=user.username) }}">Follow</a>
-            {% else %}
-              <a class="btn btn-block btn-outline-danger" type="button" href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
-            {% endif %}
-          </div>
-          <div class="col-md-4">
-            <span>
-              <div class="btn-group" role="group" aria-label="...">
-                <button class="btn btn-block btn-outline-primary" type="button" onClick="console.log('followers')">Followers {{ user.followers.count() }}</button>
-                <button class="btn btn-block btn-outline-primary" type="button" onClick="console.log('followed')">Followed {{ user.followed.count() }}</button>
-            </span>
-          </div>
+        </span>
+      </div>
     </div> <!-- ends row for title -->
 
 

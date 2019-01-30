@@ -10,9 +10,9 @@ from datetime import datetime
 
 import random # help importing
 
-@app.route('/', methods=['GET', 'POST'])
+
 @app.route('/index', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def index():
     # API - Random
     response_random = requests.get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
@@ -40,12 +40,12 @@ def index():
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
-        return redirect(url_for('explore'))
+        return redirect(url_for('index'))
 
     return render_template('index.html', title="Home", active_page="home", posts=posts.items, form=form, next_url=next_url, prev_url=prev_url, random_drink=random_drink['drinks'], category_drink=category_drink['drinks'])
 
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/explore', methods=['GET', 'POST'])
-@login_required
 def explore():
     # API - Random
     response_random = requests.get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
@@ -58,9 +58,9 @@ def explore():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('index', page=posts.next_num) \
+    next_url = url_for('explore', page=posts.next_num) \
         if posts.has_next else None
-    prev_url = url_for('index', page=posts.prev_num) \
+    prev_url = url_for('explore', page=posts.prev_num) \
         if posts.has_prev else None
 
     if form.validate_on_submit():
@@ -87,7 +87,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         # DELETE: log successful form submission
-        flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
+        # flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
         return redirect(next_page)
     return render_template('login.html', title='Sign In', active_page="signin", form=form)
 
@@ -152,8 +152,11 @@ def search(type='i', ing=''):
         response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?{}={}'.format(type, form.ingredient.data))
         data = response.json()
 
-        if type == 'i':
-            return render_template('search.html', data=data['drinks'], form=form)
+        try:
+            if type == 'i':
+                return render_template('search.html', data=data['drinks'], form=form)
+        except:
+            return redirect(url_for('search'))
 
     return render_template('search.html', title="Search", active_page="search", form=form, data='')
 

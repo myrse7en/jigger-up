@@ -1,6 +1,11 @@
 <Version 0.9> 01/21/2019
 -active state management for navbar links.
 -various visual and layout improvements.
+-[BUGFIX] pagination links always redirect to index.
+-changed route hierarchy for user accessibility. The default landing page is now 'explore.html'
+-hide user social feed if not user is not authenticated.
+-pagination features added to all pages that incorporate social feed.
+-added logo in navbar.
 
 <Version 0.8> 01/20/2019
 -added follower and followed functionality.

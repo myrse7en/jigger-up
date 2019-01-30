@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 
 {% block app_content %}
-  <div class="container">
+  <div class="container container-custom">
     <div class="row extra-top-margin h1-inherit">
       <div class="col-md-5 col-sm-8">
         <h1>Ingredient Search</h1>
@@ -15,14 +14,23 @@
       </div>
     </div>
 
-
-    <div class="row extra-top-margin">
-        {% for drink in data %}
-          <p>
-            <img src="{{ drink['strDrinkThumb'] }}" alt="drink" />
-            <b>{{ drink['strDrink'] }}</b>
-          </p>
-        {% endfor %}
-    </div>
+    <!-- Card Grid 4x2 -->
+    <div class="row">
+      {% for drink in data %}
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-img-top">
+              <img class="card-img" src="{{ drink['strDrinkThumb'] }}" alt="Drink Image" />
+            </div>
+            <div class="card-title">{{ drink['strDrink'].title() }}</div>
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              <button class="btn btn-sm btn-block btn-outline-success" type="button" onClick="console.log({{ drink['idDrink'] }})">Save</button>
+              <button class="btn btn-sm btn-block btn-info" type="button" onClick="console.log({{ drink['idDrink'] }})">Mix</button>
+              <button class="btn btn-sm btn-block btn-outline-danger" type="button" onClick="console.log({{ drink['idDrink'] }})">X</button>
+            </div>
+          </div> <!-- ends card -->
+        </div> <!-- ends col 3 -->
+      {% endfor %}
+    </div> <!-- ends row -->
   </div> <!-- ends container -->
 {% endblock %}
