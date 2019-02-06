@@ -3,9 +3,9 @@
 
 {% block title %}
   {% if title %}
-    Capstone | {{ title }}
+    JiggerUp | {{ title }}
   {% else %}
-    Welcome to Capstone
+    Welcome to JiggerUp
   {% endif %}
 {% endblock %}
 
@@ -17,6 +17,7 @@
 
 {% block scripts %}
   {{ super() }}
+  {{ moment.include_moment() }}
 {% endblock %}
 
 {% block navbar %}

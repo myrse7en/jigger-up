@@ -13,7 +13,7 @@
                     </a>
                 </div>
             </div>
-             {{ wtf.quick_form(form) }}
+             {{ wtf.quick_form(form, button_map={'submit': 'secondary centered'}) }}
              <div class="row">
                 <div class="col-md-10">
                 {% for ingredient in ingredients %}

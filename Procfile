@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn jigger-up:app
+web: flask db upgrade; gunicorn jiggerup:app

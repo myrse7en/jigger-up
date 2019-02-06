@@ -1,7 +1,14 @@
+<Version 0.9-b3> 02/05/2019
+-[BUGFIX] pagination links fixed to point current page.
+-secure password reset capability with email integration.
+-timestamp improvements implemented with user posts and last sign in.
+-user profile now only displays email and password fields if current user.
+-button visual improvements in all forms.
+
 <Version 0.9> 01/21/2019
 -active state management for navbar links.
 -various visual and layout improvements.
--[BUGFIX] pagination links always redirect to index.
+-[BUG] pagination links always redirect to index.
 -changed route hierarchy for user accessibility. The default landing page is now 'explore.html'
 -hide user social feed if not user is not authenticated.
 -pagination features added to all pages that incorporate social feed.
