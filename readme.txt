@@ -12,7 +12,7 @@ GENERAL USAGE NOTES
 
 REQUIREMENTS
 --------------
--requirements.txt - Located at the top level of the application folder it lists flask packages required to run.
+-requirements.txt - Located at the top level of the application folder, it lists all required flask package dependencies.
 -config.py - Sets global variables and defaults.
 
 INSTALLATION

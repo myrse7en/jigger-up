@@ -96,7 +96,7 @@ def login():
 def logout():
     logout_user()
     flash('Signed out successfully!')
-    return redirect(url_for('index'))
+    return redirect(url_for('explore'))
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
