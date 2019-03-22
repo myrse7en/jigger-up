@@ -10,8 +10,8 @@
     <div class="row">
       <div class="col-md-5 col-sm-8">
         {{ wtf.quick_form(form, button_map={'submit': 'secondary centered'}) }}
-        <p class="centered"><a class="a-custom" href="{{ url_for('reset_password_request') }}">Forgot your password?</a></p>
-        <p class="centered">New to JiggerUp?<a class="a-custom" href="{{ url_for('signup') }}"> Create Account</a></p>
+        <p class="centered"><a class="a-custom" href="{{ url_for('auth.reset_password_request') }}">Forgot your password?</a></p>
+        <p class="centered">New to JiggerUp?<a class="a-custom" href="{{ url_for('auth.signup') }}"> Create Account</a></p>
       </div>
     </div>
   </div> <!-- ends container -->
@@ -38,5 +38,5 @@
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <p>{{ form.submit() }}</p>
   </form>
-  <p>New to JiggerUp?<a href="{{ url_for('signup') }}">Create account</a></p> -->
+  <p>New to JiggerUp?<a href="{{ url_for('auth.signup') }}">Create account</a></p> -->
 {% endblock %}

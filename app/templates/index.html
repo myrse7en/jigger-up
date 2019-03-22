@@ -52,7 +52,7 @@
     </div> <!-- ends row -->
     <br><br><hr>
     {% if current_user.is_anonymous %}
-    <h3>Please <a href="{{ url_for('login')}}">Sign In</a> to see comments!</h3>
+    <h3>Please <a href="{{ url_for('auth.login')}}">Sign In</a> to see comments!</h3>
     {% else %}
       {% if form %}
         {{ wtf.quick_form(form) }}

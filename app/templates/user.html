@@ -12,11 +12,11 @@
       </div>
       <div class="col-md-4">
         {% if user == current_user %}
-          <a class="btn btn-block btn-dark" type="button" href="{{ url_for('profile_editor') }}">Edit</a>
+          <a class="btn btn-block btn-dark" type="button" href="{{ url_for('main.profile_editor') }}">Edit</a>
         {% elif not current_user.is_following(user) %}
-          <a class="btn btn-block align-middle btn-outline-success" type="button" href="{{ url_for('follow', username=user.username) }}">Follow</a>
+          <a class="btn btn-block align-middle btn-outline-success" type="button" href="{{ url_for('main.follow', username=user.username) }}">Follow</a>
         {% else %}
-          <a class="btn btn-block btn-outline-danger" type="button" href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
+          <a class="btn btn-block btn-outline-danger" type="button" href="{{ url_for('main.unfollow', username=user.username) }}">Unfollow</a>
         {% endif %}
       </div>
       <div class="col-md-4">

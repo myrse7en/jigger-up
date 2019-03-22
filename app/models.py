@@ -1,10 +1,11 @@
 from datetime import datetime
-from time import time
-from app import app, db, login
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 from hashlib import md5
+from time import time
+from flask import current_app
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
+from app import db, login
 
 
 # Auxillary table housing foreignkeys, does not require associated model class

@@ -1,6 +1,6 @@
-Jigger Up <Version 0.9-b1> 01/17/2019
+Jigger Up <Version 1.0> 03/21/2019
 
-We are in beta!
+We are live!
 
 A mobile-friendly flask web app developed to demonstrate skills representative of my time and experience at Coding Temple. Incorporates use of HTML, CSS, JS, Python, Flask and Bootstrap4. Highlighted features include API calls, JSONs, email password recovery and dynamic content.
 

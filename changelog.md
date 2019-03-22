@@ -1,3 +1,10 @@
+<Version 1.0> 03/21/2019
+-Blueprints added and application has been split into 3 modular sub-systems:
+--user authentication
+--error
+--core functions
+-complete refactoring of routes, forms and application structure
+
 <Version 0.9-b3> 02/05/2019
 -[BUGFIX] pagination links fixed to point current page.
 -secure password reset capability with email integration.
