@@ -39,3 +39,4 @@ venv
 app.db
 JiggerUp.log*
 .env
+.flaskenv
