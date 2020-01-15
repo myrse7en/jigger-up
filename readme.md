@@ -15,6 +15,7 @@ This application returns beverage recipes as the intersection of multiple ingred
 
 ## INSTALLATION
 -create venv
+python3 -m venv <venv>
 -In project root, activate with:
 source <venv>/bin/activate #linux
 <venv>\Scripts\activate.bat #cmd

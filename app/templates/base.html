@@ -9,6 +9,12 @@
   {% endif %}
 {% endblock %}
 
+{% block head %}
+  {{ super() }}
+  <link rel= "shortcut icon" href= "{{ url_for('static', filename='favicon.ico') }}" type= "image/x-icon">
+  <link rel= "icon" href= "{{ url_for('static', filename='favicon.ico') }}" type= "image/x-icon">
+{% endblock %}
+
 {% block styles %}
   <!-- super inherits from parent, in this case we are inheriting bootstrap links to CDN's instead of writing them out ourselves -->
   {{ super() }}
